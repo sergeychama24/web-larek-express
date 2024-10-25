@@ -1,8 +1,17 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import cors from 'cors';
-import { PORT } from './utils/constants';
+import { PORT, DB_ADDRESS } from './utils/constants';
 
 const app = express();
+
+mongoose.connect(DB_ADDRESS)
+  .then(() => {
+    console.log('MongoDB Connected');
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 app.use(cors());
 app.use(express.json());
