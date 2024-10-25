@@ -13,3 +13,25 @@ export const getProducts = (req: Request, res: Response) => {
       res.status(500).json({ message: err.message });
     });
 };
+
+export const createProduct = (req: Request, res: Response) => {
+  const {
+    title,
+    description,
+    price,
+    category,
+    image,
+  } = req.body;
+
+  Product.create({
+    title,
+    description,
+    price,
+    category,
+    image,
+  }).then((product) => {
+    res.json({ item: product });
+  }).catch((err) => {
+    res.status(500).json({ message: err.message });
+  });
+};

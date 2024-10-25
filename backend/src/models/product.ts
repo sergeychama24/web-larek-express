@@ -5,10 +5,18 @@ interface IProductImage {
   originalName: string;
 }
 
+enum Category {
+  soft = 'софт-скил',
+  hard = 'хард-скил',
+  other = 'другое',
+  additional = 'дополнительное',
+  button = 'кнопка',
+}
+
 interface IProduct {
   title: string;
   image: IProductImage;
-  category: string;
+  category: Category;
   description?: string;
   price?: number | null;
 }
@@ -33,6 +41,7 @@ const productScheme = new mongoose.Schema<IProduct>({
   },
   category: {
     type: String,
+    enum: Object.values(Category),
     required: true,
   },
   description: {
