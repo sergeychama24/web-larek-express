@@ -1,7 +1,8 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import Product from '../models/product';
+import ConflictError from '../errors/conflict-error';
 
-export const getProducts = (req: Request, res: Response) => {
+export const getProducts = (req: Request, res: Response, next: NextFunction) => {
   Product.find({})
     .then((products) => {
       res.json({
@@ -9,12 +10,12 @@ export const getProducts = (req: Request, res: Response) => {
         total: products.length,
       });
     })
-    .catch((err) => {
-      res.status(500).json({ message: err.message });
+    .catch((error) => {
+      next(error);
     });
 };
 
-export const createProduct = (req: Request, res: Response) => {
+export const createProduct = (req: Request, res: Response, next: NextFunction) => {
   const {
     title,
     description,
@@ -31,7 +32,10 @@ export const createProduct = (req: Request, res: Response) => {
     image,
   }).then((product) => {
     res.json({ item: product });
-  }).catch((err) => {
-    res.status(500).json({ message: err.message });
+  }).catch((error) => {
+    if (error instanceof Error && error.message.includes('E1100')) {
+      return next(new ConflictError());
+    }
+    return next(error);
   });
 };
