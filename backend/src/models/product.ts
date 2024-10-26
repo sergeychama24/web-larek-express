@@ -49,6 +49,7 @@ const productScheme = new mongoose.Schema<IProduct>({
   },
   price: {
     type: Number,
+    default: null,
   },
 });
 
