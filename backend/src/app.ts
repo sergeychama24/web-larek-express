@@ -9,13 +9,7 @@ import errorHandler from './middlewares/error-handler';
 
 const app = express();
 
-mongoose.connect(DB_ADDRESS)
-  .then(() => {
-    console.log('MongoDB Connected');
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+mongoose.connect(DB_ADDRESS);
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
@@ -25,4 +19,4 @@ app.use(router);
 app.use(errors());
 app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(PORT);
