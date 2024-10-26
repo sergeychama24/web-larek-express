@@ -16,4 +16,18 @@ export const orderSchema = {
   }),
 };
 
+export const productSchema = {
+  [Segments.BODY]: Joi.object().keys({
+    title: Joi.string().min(2).max(30).required(),
+    image: Joi.object().keys({
+      fileName: Joi.string().required(),
+      originalName: Joi.string().required(),
+    }),
+    category: Joi.string().required(),
+    description: Joi.string(),
+    price: Joi.number().allow(null),
+  }),
+};
+
 export const validateOrder = celebrate(orderSchema);
+export const validateProduct = celebrate(productSchema);
