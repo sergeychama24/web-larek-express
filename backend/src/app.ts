@@ -3,7 +3,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import { errors } from 'celebrate';
-import { PORT, DB_ADDRESS } from './utils/constants';
+import { PORT, DB_ADDRESS } from './config';
 import router from './routes/index';
 
 const app = express();
