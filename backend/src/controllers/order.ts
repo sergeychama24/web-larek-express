@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 export const createOrder = (req: Request, res: Response) => {
   const { total } = req.body;
   res.status(201).send({
-    id: faker.string.uuid(),
+    _id: faker.string.uuid(),
     total,
   });
 };
