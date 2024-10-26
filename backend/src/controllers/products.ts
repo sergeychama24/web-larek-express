@@ -31,7 +31,9 @@ export const createProduct = (req: Request, res: Response, next: NextFunction) =
     category,
     image,
   }).then((product) => {
-    res.json({ item: product });
+    res
+      .status(201)
+      .json({ item: product });
   }).catch((error) => {
     if (error instanceof Error && error.message.includes('E1100')) {
       return next(new ConflictError());
